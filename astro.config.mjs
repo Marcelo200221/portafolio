@@ -7,6 +7,9 @@ import astroIcon from 'astro-icon';
 
 // https://astro.build/config
 export default defineConfig({
+
+    site: 'https://Marcelo200221.github.io',
+    base: '/portafolio',
     integrations: [
         tailwind(),
         astroIcon({
