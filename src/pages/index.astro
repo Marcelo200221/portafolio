@@ -1,11 +1,114 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+	<div class="mt-[5%] flex flex-row justify-center items-center gap-4">
+		<img class="w-48 h-48 md:w-56 md:h-56 object-cover rounded-full shadow-lg animate-center-then-left md:absolute" src="/media/marcelo_darras_pf.png" alt="imagen perfil">
+		<div class="text-center md:text-left space-y-3 animate-text-reveal md:pl-[260px]">
+			<h1 class="text-3xl md:text-4xl font-bold text-white tracking-tight">
+				¡Hola!, soy <span class="text-blue-400">Marcelo Darras</span>
+			</h1>
+			<p class="text-lg text-slate-400 font-medium">
+				Ingeniero en Informática
+			</p>
+			<p class="text-slate-400 max-w-xl leading-relaxed">
+				Soy un profesional enérgico, comprometido y con gran disposición para enfrentar desafíos técnicos. 
+				A continuación, te invito a explorar el repertorio de proyectos en los que he trabajado.
+			</p>
+		
+    	</div>
+
+	</div>
+	<div class="flex flex-col justify-center items-center mt-[5%] gap-6">
+		<h3 class="text-2xl font-bold text-blue-400">Algunos proyectos desarrollados</h3>
+	
+		<div class="flex flex-col justify-center items-center gap-6 md:flex-row md:flex-wrap">
+			
+			<ProjectCard 
+				imagen=null
+				titulo="Kuma Store"
+				descripcion='Una tienda e-commerce para la venta de articulos para mascotas'
+				tecnologias={["simple-icons:html5", "simple-icons:css3", "simple-icons:javascript", "simple-icons:django", "simple-icons:sqlite"]}
+				linkGithub='https://github.com/Marcelo200221/KumaStore.git'
+			/>
+			<ProjectCard 
+				imagen=null
+				titulo="PedidosCD"
+				descripcion='App administrativa para empresa de rubro carnico'
+				tecnologias={["simple-icons:html5", "simple-icons:css3", "simple-icons:typescript", "simple-icons:django", "simple-icons:ionic", "simple-icons:angular","simple-icons:mysql"]}
+				linkGithub='https://github.com/Marcelo200221/KumaStore.git'
+			/>
+		</div>
+	</div>
 </Layout>
+
+<style>
+    /* Controlamos la línea de tiempo de la imagen en pantallas grandes (md) */
+    @keyframes centerThenLeft {
+        0% {
+            opacity: 0;
+            left: 50%;
+            transform: translateX(-50%); 
+        }
+        /* Del 0% al 40% del tiempo, la imagen solo aparece en el centro */
+        35% {
+            opacity: 1;
+			left: 50%;
+            transform: translateX(-50%);
+        }
+        /* Del 40% al 100%, la imagen se desplaza del centro a su posición original (izquierda) */
+        100% {
+            opacity: 1;
+			left:25%;
+            transform: translateX(0%);
+        }
+    }
+
+    /* Animación del texto */
+    @keyframes textReveal {
+        0% {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Aplicamos las animaciones solo en pantallas de escritorio (md) */
+    @media (min-width: 768px) {
+        .animate-center-then-left {
+            /* Duración total de 2 segundos para que sea notorio y elegante */
+            animation: centerThenLeft 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .animate-text-reveal {
+            opacity: 0;
+            /* El texto aparece justo cuando la imagen empieza a moverse (40% de 2s = 0.8s) */
+            animation: textReveal 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation-delay: 0.9s; 
+        }
+    }
+
+    /* En celulares, para evitar problemas de espacio, hacemos una aparición simple hacia abajo */
+    @media (max-width: 767px) {
+        @keyframes fadeInSimple {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-center-then-left {
+            animation: fadeInSimple 1s ease forwards;
+        }
+        .animate-text-reveal {
+            opacity: 0;
+            animation: fadeInSimple 1s ease forwards;
+            animation-delay: 0.5s;
+        }
+    }
+</style>
