@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import imagenPerfil from '/public/media/marcelo_darras_pf.png';
+import Preview from '/public/media/preview.png';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
@@ -30,19 +31,22 @@ import imagenPerfil from '/public/media/marcelo_darras_pf.png';
 	
 		<div class="flex flex-col justify-center items-center gap-6 md:flex-row md:flex-wrap">
 			
+            <ProjectCard 
+                imagen={Preview.src}
+                titulo="Kuma Store"
+                descripcion='Una tienda e-commerce para la venta de articulos para mascotas'
+                tecnologias={["simple-icons:html5", "simple-icons:css3", "simple-icons:javascript", "simple-icons:django", "simple-icons:sqlite"]}
+                linkGithub='https://github.com/Marcelo200221/KumaStore.git'
+                linkProyecto='https://kumastore.onrender.com/'
+            />
+            
 			<ProjectCard 
 				imagen=null
-				titulo="Kuma Store"
-				descripcion='Una tienda e-commerce para la venta de articulos para mascotas'
-				tecnologias={["simple-icons:html5", "simple-icons:css3", "simple-icons:javascript", "simple-icons:django", "simple-icons:sqlite"]}
-				linkGithub='https://github.com/Marcelo200221/KumaStore.git'
-			/>
-			<ProjectCard 
-				imagen=null
-				titulo="PedidosCD"
-				descripcion='App administrativa para empresa de rubro carnico'
-				tecnologias={["simple-icons:html5", "simple-icons:css3", "simple-icons:typescript", "simple-icons:django", "simple-icons:ionic", "simple-icons:angular","simple-icons:mysql"]}
-				linkGithub='https://github.com/Marcelo200221/KumaStore.git'
+				titulo="Project bey"
+				descripcion='Pagina web creada como foro para amantes del beyblade'
+				tecnologias={["simple-icons:html5", "simple-icons:css3", "simple-icons:typescript", "simple-icons:django", "simple-icons:vuedotjs","simple-icons:mysql"]}
+				linkGithub='https://github.com/Marcelo200221/Project-bey.git'
+                linkProyecto=null
 			/>
 		</div>
 	</div>
