@@ -2,7 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import imagenPerfil from '/public/media/marcelo_darras_pf.png';
-import Preview from '/public/media/preview.png';
+import Preview from '/public/media/preview_kuma.png';
+import Preview2 from '/public/media/preview_bey.png';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
@@ -41,12 +42,12 @@ import Preview from '/public/media/preview.png';
             />
             
 			<ProjectCard 
-				imagen=null
+				imagen={Preview2.src}
 				titulo="Project bey"
 				descripcion='Pagina web creada como foro para amantes del beyblade'
 				tecnologias={["simple-icons:html5", "simple-icons:css3", "simple-icons:typescript", "simple-icons:django", "simple-icons:vuedotjs","simple-icons:mysql"]}
 				linkGithub='https://github.com/Marcelo200221/Project-bey.git'
-                linkProyecto=null
+                linkProyecto='https://project-beystory-one.vercel.app/home'
 			/>
 		</div>
 	</div>
