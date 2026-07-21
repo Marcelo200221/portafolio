@@ -1,0 +1,152 @@
+---
+---
+
+<div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none select-none bg-[#091a16]">
+  <!-- Rich Dark-Teal Gradient Overlay -->
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-10%,rgba(74,194,167,0.22),transparent)]"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_80%_90%,rgba(16,185,129,0.18),transparent)]"></div>
+
+  <!-- Subtle #4AC2A7 Tech Grid Pattern overlay -->
+  <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(74,194,167,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(74,194,167,0.12)_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_80%_70%_at_50%_40%,#000_65%,transparent_100%)]"></div>
+
+  <!-- Vibrant Animated Glowing Orbs (Midpoint Teal/Cyan/Mint Palette) -->
+  <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-[#4AC2A7]/30 rounded-full blur-[110px] animate-orb-float-1"></div>
+  <div class="absolute top-1/3 -right-20 w-[34rem] h-[34rem] bg-[#06b6d4]/25 rounded-full blur-[120px] animate-orb-float-2"></div>
+  <div class="absolute bottom-1/4 -left-20 w-[36rem] h-[36rem] bg-[#10b981]/25 rounded-full blur-[120px] animate-orb-float-3"></div>
+  <div class="absolute top-2/3 left-1/3 w-[30rem] h-[30rem] bg-[#2dd4bf]/25 rounded-full blur-[100px] animate-orb-float-4"></div>
+
+  <!-- Dynamic floating particles canvas -->
+  <canvas id="particle-canvas" class="absolute inset-0 w-full h-full opacity-75"></canvas>
+</div>
+
+<style>
+  @keyframes orbFloat1 {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+      transform: translate(-46%, -54%) scale(1.12);
+    }
+  }
+
+  @keyframes orbFloat2 {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(-40px, 50px) scale(1.1);
+    }
+  }
+
+  @keyframes orbFloat3 {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(50px, -40px) scale(1.14);
+    }
+  }
+
+  @keyframes orbFloat4 {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(-35px, -45px) scale(0.92);
+    }
+  }
+
+  .animate-orb-float-1 {
+    animation: orbFloat1 18s ease-in-out infinite;
+  }
+  .animate-orb-float-2 {
+    animation: orbFloat2 22s ease-in-out infinite;
+  }
+  .animate-orb-float-3 {
+    animation: orbFloat3 26s ease-in-out infinite;
+  }
+  .animate-orb-float-4 {
+    animation: orbFloat4 20s ease-in-out infinite;
+  }
+</style>
+
+<script>
+  function initParticleCanvas() {
+    const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement | null;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    let handleResize = () => {
+      if (!canvas) return;
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      createParticles();
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    interface Particle {
+      x: number;
+      y: number;
+      radius: number;
+      vx: number;
+      vy: number;
+      alpha: number;
+      color: string;
+    }
+
+    let particles: Particle[] = [];
+    const colors = ['#4AC2A7', '#6ee7b7', '#38bdf8', '#ffffff', '#2dd4bf'];
+
+    function createParticles() {
+      particles = [];
+      const particleCount = Math.min(Math.floor((width * height) / 20000), 50);
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 1.8 + 0.8,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          alpha: Math.random() * 0.5 + 0.2,
+          color: colors[Math.floor(Math.random() * colors.length)]
+        });
+      }
+    }
+
+    createParticles();
+
+    function render() {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, width, height);
+
+      particles.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.alpha;
+        ctx.fill();
+      });
+
+      requestAnimationFrame(render);
+    }
+
+    render();
+  }
+
+  // Run on initial load
+  initParticleCanvas();
+  document.addEventListener('astro:page-load', initParticleCanvas);
+</script>
